@@ -12,9 +12,11 @@
   </head>
   <body>
     <h1>Hello, world!</h1>
-    <p>The service worker responds with the cached image  for the chicken and puppy images. 
+
+    <p id = "fetchedInfo">Connectivity:</p>
+    <p>The service worker responds with the <b>cached</b> image  for the chicken and puppy images. 
     </p>
-    <p>The service worker responds with the fetched image from the server for the heart tree.
+    <p>The service worker responds with the <b>fetched</b> image from the server for the heart tree.
     </p>
     
     <div class="container">
@@ -23,7 +25,14 @@
       <img src="puppy.jpg" width="300">
     </div>
     <script>
+        // Object.defineProperty(navigator, "onLine", {value: false})
     navigator.serviceWorker.register("sw.js");
+    const fetchElem = document.getElementById("fetchedInfo");
+
+    fetch("info.json").then(response=>{ //get data from the internet
+        return response.json();
+    }).then(json=>fetchElem.innerText += " "+json.status)
+
     </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
